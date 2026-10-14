@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/default :: layout('사용자관리', ~{::section})}">
+<body>
+<section>
+    <h2>사용자관리</h2>
+    <form class="search-bar" method="get" th:action="@{/system/user}">
+        <input type="text" name="keyword" th:value="${keyword}" placeholder="사번/성명 검색"/>
+        <button class="btn primary" type="submit">검색</button>
+        <a class="btn" th:href="@{/system/user/new}">신규등록</a>
+    </form>
+    <table class="tbl">
+        <thead><tr><th>사번</th><th>성명</th><th>부서</th><th>권한</th><th>사용</th><th>등록일</th></tr></thead>
+        <tbody>
+        <tr th:each="u : ${page.list}">
+            <td><a th:href="@{'/system/user/' + ${u.userId}}" th:text="${u.userId}">admin</a></td>
+            <td th:text="${u.userNm}">관리자</td>
+            <td th:text="${u.deptCd}">DEV</td>
+            <td th:text="${u.roleCd}">ADMIN</td>
+            <td th:text="${u.useYn}">Y</td>
+            <td th:text="${u.regDt}">2026-01-01</td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(page.list)}"><td colspan="6" class="center">데이터가 없습니다.</td></tr>
+        </tbody>
+    </table>
+    <div class="paging">
+        <span th:text="'총 ' + ${page.totalCount} + '건 / ' + ${page.pageNo} + '/' + ${page.totalPage} + '페이지'">총 0건</span>
+        <span>
+            <a class="btn btn-sm" th:if="${page.pageNo > 1}"
+               th:href="@{/system/user(keyword=${keyword},pageNo=${page.pageNo-1})}">이전</a>
+            <a class="btn btn-sm" th:if="${page.pageNo < page.totalPage}"
+               th:href="@{/system/user(keyword=${keyword},pageNo=${page.pageNo+1})}">다음</a>
+        </span>
+    </div>
+</section>
+</body>
+</html>

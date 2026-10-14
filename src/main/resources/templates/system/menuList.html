@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/default :: layout('메뉴관리', ~{::section})}">
+<body>
+<section>
+    <h2>메뉴관리</h2>
+    <table class="tbl">
+        <thead><tr><th>메뉴ID</th><th>상위ID</th><th>메뉴명</th><th>URL</th><th>순서</th><th>사용</th></tr></thead>
+        <tbody>
+        <tr th:each="m : ${menus}">
+            <td th:text="${m.MENU_ID}">SYS010</td>
+            <td th:text="${m.UP_MENU_ID}">SYS</td>
+            <td th:text="${m.MENU_NM}">사용자관리</td>
+            <td th:text="${m.URL}">/system/user</td>
+            <td th:text="${m.SORT_NO}">1</td>
+            <td th:text="${m.USE_YN}">Y</td>
+        </tr>
+        </tbody>
+    </table>
+    <h3>등록/수정</h3>
+    <form class="form inline-form" method="post" th:action="@{/system/menu/save}">
+        <input type="text" name="menuId" placeholder="메뉴ID (예: SYS040)" required/>
+        <input type="text" name="upMenuId" placeholder="상위ID (예: SYS)"/>
+        <input type="text" name="menuNm" placeholder="메뉴명" required/>
+        <input type="text" name="url" placeholder="URL (예: /work/list)"/>
+        <input type="number" name="sortNo" value="9"/>
+        <select name="useYn"><option value="Y">Y</option><option value="N">N</option></select>
+        <button class="btn primary" type="submit">저장</button>
+    </form>
+</section>
+</body>
+</html>

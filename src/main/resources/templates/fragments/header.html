@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="header">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<header class="top-header" th:fragment="top">
+    <div class="brand"><a th:href="@{/}">사내 웹시스템</a></div>
+    <div class="user-box" th:if="${loginUser != null}">
+        <span th:text="${loginUser.userNm}">홍길동</span>
+        <span class="muted" th:text="'(' + ${loginUser.userId} + ')'">(admin)</span>
+        <a th:href="@{/logout}" class="btn btn-sm">로그아웃</a>
+    </div>
+</header>
+</body>
+</html>

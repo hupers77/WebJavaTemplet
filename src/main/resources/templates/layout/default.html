@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:fragment="layout(title, content)">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="${title} ?: '사내 웹시스템'">사내 웹시스템</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/header :: top}"></div>
+<div class="container">
+    <div th:replace="~{fragments/left :: left}"></div>
+    <main class="content">
+        <div th:replace="${content}"></div>
+    </main>
+</div>
+<div th:replace="~{fragments/footer :: bottom}"></div>
+<script th:src="@{/js/common.js}"></script>
+</body>
+</html>

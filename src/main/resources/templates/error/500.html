@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/default :: layout('오류', ~{::section})}">
+<body>
+<section class="error-box">
+    <h2>시스템 오류가 발생했습니다.</h2>
+    <p th:text="${errorMessage}">잠시 후 다시 시도하세요.</p>
+    <a class="btn" th:href="@{/}">메인으로</a>
+</section>
+</body>
+</html>

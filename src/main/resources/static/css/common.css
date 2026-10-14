@@ -1,0 +1,62 @@
+/* 사내 표준 CSS - 외부 프레임워크 없이 직접 정의 */
+:root {
+  --bg: #f3f4f6; --panel: #ffffff; --line: #e5e7eb;
+  --ink: #111827; --muted: #6b7280; --brand: #1d4ed8; --brand-d: #1e40af;
+  --ok: #047857; --err: #b91c1c;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+  font-family: -apple-system, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; font-size: 14px; }
+a { color: var(--brand); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.top-header { display: flex; justify-content: space-between; align-items: center;
+  background: #0f172a; color: #fff; padding: 12px 20px; }
+.top-header a { color: #fff; } .brand a { font-weight: 700; font-size: 16px; }
+.user-box { display: flex; gap: 8px; align-items: center; }
+.container { display: flex; min-height: calc(100vh - 110px); }
+.side { width: 230px; background: var(--panel); border-right: 1px solid var(--line); padding: 16px; }
+.side-title { font-weight: 700; margin-bottom: 10px; }
+.menu-root, .menu-sub { list-style: none; margin: 0; padding: 0; }
+.menu-group { font-weight: 700; display: block; margin: 10px 0 4px; }
+.menu-sub a { display: block; padding: 7px 10px; border-radius: 6px; color: var(--ink); }
+.menu-sub a.active, .menu-sub a:hover { background: #dbeafe; text-decoration: none; }
+.content { flex: 1; padding: 20px; }
+.content section { background: var(--panel); border: 1px solid var(--line);
+  border-radius: 8px; padding: 18px; }
+.footer { text-align: center; color: var(--muted); padding: 12px; font-size: 12px; }
+.tbl { width: 100%; border-collapse: collapse; margin-top: 12px; }
+.tbl th, .tbl td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+.tbl th { background: #f8fafc; } .center { text-align: center; }
+.btn { display: inline-block; border: 1px solid var(--line); background: #fff;
+  padding: 7px 12px; border-radius: 6px; cursor: pointer; color: var(--ink); }
+.btn.primary { background: var(--brand); border-color: var(--brand); color: #fff; }
+.btn:hover { filter: brightness(.97); text-decoration: none; }
+.btn-sm { padding: 4px 8px; font-size: 12px; }
+.search-bar { display: flex; gap: 8px; align-items: center; }
+.search-bar input[type=text] { padding: 7px 10px; border: 1px solid var(--line); border-radius: 6px; width: 260px; }
+.form { display: grid; gap: 10px; max-width: 560px; margin-top: 12px; }
+.form label { display: grid; gap: 6px; font-weight: 600; }
+.form input, .form select { padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; font-weight: 400; }
+.btn-row { display: flex; gap: 8px; }
+.inline-form { display: flex; gap: 8px; flex-wrap: wrap; max-width: none; align-items: center; }
+.inline-form input, .inline-form select { width: auto; }
+.paging { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.card { border: 1px solid var(--line); border-radius: 8px; padding: 12px; background: #fbfdff; }
+.cols { display: grid; grid-template-columns: 220px 1fr; gap: 16px; }
+.list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.list a { display: block; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; color: var(--ink); }
+.list a.active { background: #dbeafe; border-color: #93c5fd; }
+.muted { color: var(--muted); }
+.alert { padding: 10px 12px; border-radius: 6px; margin: 10px 0; }
+.alert.error { background: #fef2f2; color: var(--err); border: 1px solid #fecaca; }
+.alert.ok { background: #ecfdf5; color: var(--ok); border: 1px solid #a7f3d0; }
+.login-body { display: flex; align-items: center; justify-content: center; height: 100vh; }
+.login-box { width: 360px; background: var(--panel); border: 1px solid var(--line);
+  border-radius: 10px; padding: 24px; }
+.login-box h1 { margin: 0 0 4px; font-size: 20px; }
+.login-box label { display: grid; gap: 6px; margin: 10px 0; font-weight: 600; }
+.login-box input { padding: 9px 10px; border: 1px solid var(--line); border-radius: 6px; }
+.w-full { width: 100%; } .hint { font-size: 12px; color: var(--muted); }
+.error-box { text-align: center; padding: 30px; }
+code { background: #f1f5f9; padding: 1px 5px; border-radius: 4px; }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>로그인 - 사내 웹시스템</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}"/>
+</head>
+<body class="login-body">
+<div class="login-box">
+    <h1>사내 웹시스템</h1>
+    <p class="muted">사번으로 로그인하세요.</p>
+    <div class="alert error" th:if="${param.error}">아이디 또는 비밀번호가 올바르지 않습니다.</div>
+    <div class="alert ok" th:if="${param.logout}">로그아웃되었습니다.</div>
+    <form th:action="@{/login}" method="post" onsubmit="return checkLogin(this);">
+        <label>아이디<input type="text" name="username" placeholder="사번" autofocus/></label>
+        <label>비밀번호<input type="password" name="password" placeholder="비밀번호"/></label>
+        <button class="btn primary w-full" type="submit">로그인</button>
+    </form>
+    <p class="hint">초기 관리자: admin (비밀번호는 DB schema.sql 주석 참조 후 BCrypt로 재생성)</p>
+</div>
+<script th:src="@{/js/common.js}"></script>
+</body>
+</html>

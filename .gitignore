@@ -1,0 +1,22 @@
+# Maven / Java
+target/
+*.class
+
+# IDE
+.idea/
+.vscode/
+*.iml
+.project
+.classpath
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Spring / logs
+logs/
+*.log
+
+# Env (운영 DB 비번 등)
+.env

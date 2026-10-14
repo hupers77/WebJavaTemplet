@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav class="side" th:fragment="left">
+    <div class="side-title">메뉴</div>
+    <ul class="menu-root">
+        <li th:each="m : ${menus}" th:if="${m.UP_MENU_ID} == null">
+            <span class="menu-group" th:text="${m.MENU_NM}">시스템관리</span>
+            <ul class="menu-sub">
+                <li th:each="s : ${menus}" th:if="${s.UP_MENU_ID} == ${m.MENU_ID}">
+                    <a th:href="@{${s.URL}}"
+                       th:classappend="${currentUri} == ${s.URL} ? ' active' : ''"
+                       th:text="${s.MENU_NM}">사용자관리</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <div class="side-empty" th:if="${menus == null or #lists.isEmpty(menus)}">메뉴 없음</div>
+</nav>
+</body>
+</html>

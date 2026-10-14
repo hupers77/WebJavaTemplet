@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/default :: layout('사용자상세', ~{::section})}">
+<body>
+<section>
+    <h2 th:text="${user != null ? '사용자수정' : '사용자등록'}">사용자등록</h2>
+    <form class="form" method="post" th:action="@{/system/user/save}" onsubmit="return checkUserForm(this);">
+        <label>사번
+            <input type="text" name="userId" th:value="${user?.userId}"
+                   th:readonly="${user != null}" placeholder="예: 10001"/>
+        </label>
+        <label>성명<input type="text" name="userNm" th:value="${user?.userNm}"/></label>
+        <label>비밀번호(신규 필수, 수정시 빈칸=유지)<input type="password" name="password"/></label>
+        <label>부서
+            <select name="deptCd">
+                <option value="">선택</option>
+                <option th:each="c : ${deptList}" th:value="${c.code}" th:text="${c.name}"
+                        th:selected="${user != null and user.deptCd == c.code}">개발팀</option>
+            </select>
+        </label>
+        <label>권한
+            <select name="roleCd">
+                <option th:each="c : ${roleList}" th:value="${c.code}" th:text="${c.name}"
+                        th:selected="${user != null and user.roleCd == c.code}">관리자</option>
+            </select>
+        </label>
+        <div class="btn-row">
+            <button class="btn primary" type="submit">저장</button>
+            <a class="btn" th:href="@{/system/user}">목록</a>
+        </div>
+    </form>
+</section>
+</body>
+</html>

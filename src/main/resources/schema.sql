@@ -1,0 +1,70 @@
+-- =============================================
+-- 사내 웹시스템 표준 스키마 (MySQL 8.0 / utf8mb4)
+-- =============================================
+CREATE DATABASE IF NOT EXISTS intra CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE intra;
+
+-- 사용자
+CREATE TABLE IF NOT EXISTS CM_USER (
+  USER_ID     VARCHAR(30)  NOT NULL COMMENT '사번/로그인ID',
+  USER_NM     VARCHAR(50)  NOT NULL COMMENT '성명',
+  PWD         VARCHAR(100) NOT NULL COMMENT 'BCrypt 해시',
+  DEPT_CD     VARCHAR(20)  NULL COMMENT '부서코드(CM_CODE)',
+  ROLE_CD     VARCHAR(20)  NOT NULL DEFAULT 'USER' COMMENT 'ADMIN/USER',
+  USE_YN      CHAR(1)      NOT NULL DEFAULT 'Y',
+  REG_ID      VARCHAR(30)  NULL,
+  REG_DT      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  MOD_ID      VARCHAR(30)  NULL,
+  MOD_DT      DATETIME     NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (USER_ID)
+) ENGINE=InnoDB COMMENT='사용자';
+
+-- 메뉴 (2레벨: 상위-하위)
+CREATE TABLE IF NOT EXISTS CM_MENU (
+  MENU_ID     VARCHAR(20)  NOT NULL,
+  UP_MENU_ID  VARCHAR(20)  NULL,
+  MENU_NM     VARCHAR(50)  NOT NULL,
+  URL         VARCHAR(200) NULL,
+  SORT_NO     INT          NOT NULL DEFAULT 0,
+  USE_YN      CHAR(1)      NOT NULL DEFAULT 'Y',
+  PRIMARY KEY (MENU_ID)
+) ENGINE=InnoDB COMMENT='메뉴';
+
+-- 공통코드
+CREATE TABLE IF NOT EXISTS CM_CODE (
+  GRP_CD      VARCHAR(20)  NOT NULL,
+  DTL_CD      VARCHAR(20)  NOT NULL,
+  DTL_NM      VARCHAR(100) NOT NULL,
+  SORT_NO     INT          NOT NULL DEFAULT 0,
+  USE_YN      CHAR(1)      NOT NULL DEFAULT 'Y',
+  PRIMARY KEY (GRP_CD, DTL_CD)
+) ENGINE=InnoDB COMMENT='공통코드';
+
+-- 로그인 이력
+CREATE TABLE IF NOT EXISTS CM_LOGIN_HIST (
+  SEQ         BIGINT AUTO_INCREMENT PRIMARY KEY,
+  USER_ID     VARCHAR(30)  NOT NULL,
+  LOGIN_DT    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  LOGIN_IP    VARCHAR(40)  NULL,
+  SUCCESS_YN  CHAR(1)      NOT NULL,
+  FAIL_RSN    VARCHAR(200) NULL
+) ENGINE=InnoDB COMMENT='로그인이력';
+
+-- 초기 데이터
+INSERT IGNORE INTO CM_USER (USER_ID, USER_NM, PWD, ROLE_CD) VALUES
+ ('admin', '관리자', '$2a$10$7Eq9s2k6m3q3QeX8v1Z8.uJ9vQwXyZ1a2b3c4d5e6f7g8h9i0j1k2', 'ADMIN');
+
+INSERT IGNORE INTO CM_MENU (MENU_ID, UP_MENU_ID, MENU_NM, URL, SORT_NO) VALUES
+ ('SYS', NULL, '시스템관리', NULL, 1),
+ ('SYS010', 'SYS', '사용자관리', '/system/user', 1),
+ ('SYS020', 'SYS', '메뉴관리', '/system/menu', 2),
+ ('SYS030', 'SYS', '공통코드관리', '/system/code', 3);
+
+INSERT IGNORE INTO CM_CODE (GRP_CD, DTL_CD, DTL_NM, SORT_NO) VALUES
+ ('ROLE', 'ADMIN', '관리자', 1),
+ ('ROLE', 'USER', '일반사용자', 2),
+ ('USE_YN', 'Y', '사용', 1),
+ ('USE_YN', 'N', '미사용', 2),
+ ('DEPT', 'DEV', '개발팀', 1),
+ ('DEPT', 'OPS', '운영팀', 2),
+ ('DEPT', 'HR', '인사팀', 3);
